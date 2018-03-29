@@ -12,14 +12,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(express.static('build'));
 
-app.get('/', (req,res) => {
-  res.sendFile(path.join(__dirname + '/index.html'))
-});
-
 //API route
 app.use('/api/puppy', require('./routes/puppy-routes'));
 app.use('/api/opinions', require('./routes/opinion-routes'));
 app.use('/api/puppyfinder', require('./routes/puppy-finder-routes'));
+app.get('/*', (req,res) => {
+  res.sendFile(path.join(__dirname + '/index.html'))
+});
 
 // Setting up the port
 app.listen(PORT, () => {
