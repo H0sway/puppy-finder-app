@@ -25,13 +25,25 @@ class SingleResult extends Component {
     this.state = {
       name: this.props.puppy.name.$t,
       breed: this.props.puppy.breeds.breed.$t,
-      photourl: this.props.puppy.media.photos.photo[2].$t,
       sex: this.props.puppy.sex.$t,
       description: this.props.puppy.description.$t,
       fireRedirect: false
     }
     this.addPuppy = this.addPuppy.bind(this)
    }
+
+  componentDidMount() {
+    if (this.props.puppy.media.photos) {
+      this.setState({
+        photourl: this.props.puppy.media.photos.photo[2].$t,
+      })
+    }
+    else {
+      this.setState({
+        photourl: "https://i.imgur.com/T8c5BKr.png",
+      })
+    }
+  }
 
   addPuppy() {
     axios.post('/api/puppy', {
@@ -59,7 +71,7 @@ class SingleResult extends Component {
       return(
         <div className='inner'>
           <div className='img'>
-            <img src={this.state.photourl} alt={this.state.name}/>
+          <img src={this.state.photourl} alt={this.state.name}/>
           </div>
           <div className='info'>
             <h1>My name is {this.state.name}</h1>

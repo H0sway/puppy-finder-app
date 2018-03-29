@@ -99,7 +99,28 @@ https://trello.com/b/dYEDr2VX
 
 ## Code Snippet
 
-Use this section to include a brief code snippet of functionality that you are proud of an a brief description.  
+![Code Snippet](https://trello-attachments.s3.amazonaws.com/5a6ca2635159f923e03bf7bd/5a78c3eaaabaf251de3e4b9d/f7d02c4673d1d1597e49a48e0205ff5f/Screen_Shot_2018-02-05_at_10.00.03_AM.png) 
 
 ## Issues and Resolutions
- Use this section to list of all major issues encountered and their resolution.
+
+Issue: Pet Finder API data was very nested.
+Resolution: Extensively testing the JSON objects to see exactly what we needed to write in our controller to call the data we wanted; deciding to specify a position in the array for photourl, instead of photos size.
+
+Issue: PetFinder photourl's we're inside an array of different photo sizes, making it very difficult to identify a specific size for each data element and there are various image URLs for each pet. No good way to sort through them to find the largest, and some were too small to use in a web app.
+Resolution: Tested and discovered that the 3rd image listed was often the largest, and always big enough to be seen clearly on the big screen. Wrote the code to always use the third photo in each pet's photo array.
+
+Issue: Had difficulty figuring out when to pass data as props and when to make axios calls in React.
+Resolution: Tested to see what made the most sense when connecting the necessary components.
+
+## Instructions for Downloading Code
+Instructions for downloading the code and running it on localhost:
+
+To install this example on your computer, clone the repository and install dependencies
+1. Git clone
+2. Install dependencies, located in .json, npm install
+3. Run the migration files in terminal with these commands psql -f migrations/add-opinion-table.sql psql -f migrations/add-puppies-table.sql
+4. In one terminal window, enter the command npm start and in a separate one npm run build
+3. Open a web browser and run on localhost:3000
+
+This app uses environment variables to configure the clientID and clientSecret to access Google's API. Start the server with your own variables set to the appropriate credentials - see google developers console.
+ 

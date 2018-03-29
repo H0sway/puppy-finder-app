@@ -131,13 +131,18 @@ class Search extends Component {
         zipcode: this.state.zipcode,
       },
     })
-    // Gets back the puppy data and sticks it into
+    // Checks to see if puppy data was returned by putting it into an array
     .then(puppyData => {
-      console.log(puppyData)
+      console.log(puppyData.data.data.pet);
+      if (puppyData.data.data.pet.length) {
         this.setState({
-        puppiesLoaded: true,
-        puppyData: puppyData.data.data.pet,
-      })
+          puppiesLoaded: true,
+          puppyData: puppyData.data.data.pet,
+        });
+      }
+      else {
+        alert(`Sorry, but we couldn't find any ${this.state.breed} dogs nearby ${this.state.zipcode}. Maybe try something else?`)
+      }
     })
     .catch(err => {
       console.log('puppyfinder call error', err);

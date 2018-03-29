@@ -49,7 +49,7 @@ class Results extends Component {
         <button onClick={() => this.renderSingleResult(puppy)}>Meet {puppy.name.$t}</button>
         <br />
         <br />
-        <img src={puppy.media.photos.photo[2].$t} />
+        {puppy.media.photos ? <img src={puppy.media.photos.photo[2].$t} /> : <img src="https://i.imgur.com/T8c5BKr.png" />}
       </div>
     )
     })

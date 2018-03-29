@@ -14420,13 +14420,17 @@ var Search = function (_Component) {
           zipcode: this.state.zipcode
         }
       })
-      // Gets back the puppy data and sticks it into
+      // Checks to see if puppy data was returned by putting it into an array
       .then(function (puppyData) {
-        console.log(puppyData);
-        _this2.setState({
-          puppiesLoaded: true,
-          puppyData: puppyData.data.data.pet
-        });
+        console.log(puppyData.data.data.pet);
+        if (puppyData.data.data.pet.length) {
+          _this2.setState({
+            puppiesLoaded: true,
+            puppyData: puppyData.data.data.pet
+          });
+        } else {
+          alert('Sorry, but we couldn\'t find any ' + _this2.state.breed + ' dogs nearby ' + _this2.state.zipcode + '. Maybe try something else?');
+        }
       }).catch(function (err) {
         console.log('puppyfinder call error', err);
       });
@@ -15401,7 +15405,7 @@ var Results = function (_Component) {
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('img', { src: puppy.media.photos.photo[2].$t })
+          puppy.media.photos ? _react2.default.createElement('img', { src: puppy.media.photos.photo[2].$t }) : _react2.default.createElement('img', { src: 'https://i.imgur.com/T8c5BKr.png' })
         );
       });
     }
@@ -15508,7 +15512,6 @@ var SingleResult = function (_Component) {
     _this.state = {
       name: _this.props.puppy.name.$t,
       breed: _this.props.puppy.breeds.breed.$t,
-      photourl: _this.props.puppy.media.photos.photo[2].$t,
       sex: _this.props.puppy.sex.$t,
       description: _this.props.puppy.description.$t,
       fireRedirect: false
@@ -15518,6 +15521,19 @@ var SingleResult = function (_Component) {
   }
 
   _createClass(SingleResult, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (this.props.puppy.media.photos) {
+        this.setState({
+          photourl: this.props.puppy.media.photos.photo[2].$t
+        });
+      } else {
+        this.setState({
+          photourl: "https://i.imgur.com/T8c5BKr.png"
+        });
+      }
+    }
+  }, {
     key: 'addPuppy',
     value: function addPuppy() {
       var _this2 = this;
