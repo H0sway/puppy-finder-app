@@ -35,7 +35,7 @@ class SingleResult extends Component {
   componentDidMount() {
     if (this.props.puppy.media.photos) {
       this.setState({
-        photourl: this.props.media.photos.photo[2].$t,
+        photourl: this.props.puppy.media.photos.photo[2].$t,
       })
     }
     else {
