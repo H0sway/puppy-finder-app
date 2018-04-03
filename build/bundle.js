@@ -14512,7 +14512,7 @@ var Search = function (_Component) {
       })
       // Checks to see if puppy data was returned by putting it into an array
       .then(function (puppyData) {
-        console.log(puppyData.data.data.pet);
+        // console.log(puppyData.data.data.pet);
         if (puppyData.data.data.pet.length) {
           _this2.setState({
             puppiesLoaded: true,

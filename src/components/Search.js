@@ -133,7 +133,7 @@ class Search extends Component {
     })
     // Checks to see if puppy data was returned by putting it into an array
     .then(puppyData => {
-      console.log(puppyData.data.data.pet);
+      // console.log(puppyData.data.data.pet);
       if (puppyData.data.data.pet.length) {
         this.setState({
           puppiesLoaded: true,
