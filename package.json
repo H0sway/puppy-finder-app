@@ -10,11 +10,11 @@
   },
   "engines": {
     "node": "9.9.0",
-    "npm": "5.6.0"
+    "npm": "5.8.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://git.generalassemb.ly/DebleyJorry/puppy-love-app.git"
+    "url": "https://github.com/H0sway/puppy-finder-app"
   },
   "author": "",
   "license": "ISC",
