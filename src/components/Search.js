@@ -20,6 +20,15 @@ class Search extends Component {
     this.newSearch = this.newSearch.bind(this);
   }
   // render each breed option with a photo. placeholder right now.
+  componentDidMount() {
+    axios({
+      method: "GET",
+      url: '/api/puppyfinder/breeds'
+    })
+    .then(data => {
+      console.log(data);
+    })
+  }
   renderSearch() {
     return (
       <div className="searchform">
@@ -156,8 +165,6 @@ class Search extends Component {
     });
   }
   render() {
-    console.log('inside render', this.state)
-    // renders the page normally
     return (
       <div className="search">
         {/* Conditional rendering. If we loaded data from the puppy finder API the Results component will render.
