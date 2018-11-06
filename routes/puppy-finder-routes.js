@@ -8,5 +8,6 @@ const puppyFinderController = require('../controllers/puppy-finder-controller');
 
 // Send the API data to localhost
 puppyFinderRouter.post('/', puppyFinderController.search);
+puppyFinderRouter.get('/breeds', puppyFinderController.breeds);
 
 module.exports = puppyFinderRouter;
