@@ -1,6 +1,9 @@
 // import things
 import React, { Component } from 'react';
 import axios from 'axios';
+
+// Import necessary components
+import Suggestions from './Suggestions';
 import Results from './Results';
 
 // Instantiate the Search class
@@ -10,6 +13,7 @@ class Search extends Component {
     this.state = {
       breedList: [],
       breed: '',
+      suggestions: [],
       zipcode: '',
       puppiesLoaded: false,
       puppyData: null
@@ -17,6 +21,7 @@ class Search extends Component {
     };
     // bind the functions
     this.handleChange = this.handleChange.bind(this);
+    this.handleBreedChange = this.handleBreedChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.newSearch = this.newSearch.bind(this);
   }
@@ -46,8 +51,9 @@ class Search extends Component {
           <br />
           <input
             placeholder="Search breeds"
+            value={this.state.breed}
             name="breed"
-            onChange={this.handleChange}
+            onChange={this.handleBreedChange}
           />
           <input
             type="text"
@@ -57,6 +63,14 @@ class Search extends Component {
             onChange={this.handleChange}
             required
           />
+
+          {
+            this.state.suggestions ?
+              <Suggestions
+                results={this.state.suggestions}
+              /> : ''
+          }
+
           <br />
           <br />
           <input type="submit" value="Search for Puppers" />
@@ -115,6 +129,35 @@ class Search extends Component {
 
       </div>
     )
+  }
+
+  getBreeds() {
+    const breedList = this.state.breedList;
+    const query = this.state.breed.toLowerCase();
+    const suggestions = []
+
+    breedList.forEach(breed => {
+      const name = breed.$t.toLowerCase();
+       if (name.match(query)) {
+         suggestions.push(breed.$t);
+       }
+    })
+    this.setState({
+      suggestions: suggestions
+    })
+  }
+
+  handleBreedChange(event) {
+    const breed = event.target.value;
+    this.setState({
+      suggestions: [],
+      breed: breed
+    })
+    if (breed && breed.length > 0) {
+      this.getBreeds();
+    }
+    else if (!this.state.breed) {
+    }
   }
   // Changes state based on what the user inputs into the form
   handleChange(event) {
