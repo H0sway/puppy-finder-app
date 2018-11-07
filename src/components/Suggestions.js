@@ -5,11 +5,11 @@ import React from 'react'
 const Suggestions = (props) => {
   // Loops through the results props
   const options = props.results.map(breed => (
-    <li key={props.results.indexOf(breed)}>
-      {breed}
-    </li>
+    <div key={props.results.indexOf(breed)}>
+      <p>{breed}</p>
+    </div>
   ))
-  return <ul>{options}</ul>
+  return <div className="suggestions">{options}</div>
 }
 
 export default Suggestions

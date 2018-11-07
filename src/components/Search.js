@@ -49,6 +49,9 @@ class Search extends Component {
           <label>Select a breed and enter your zipcode!</label>
           <br />
           <br />
+          <input type="submit" value="Search for Puppers" />
+          <br />
+          <br />
           <input
             placeholder="Search breeds"
             value={this.state.breed}
@@ -73,8 +76,8 @@ class Search extends Component {
 
           <br />
           <br />
-          <input type="submit" value="Search for Puppers" />
         </form>
+
       {/* Name and photo of each of the breeds you can search for */}
         <div className="wrapper">
           <div className="breeds">
@@ -134,12 +137,18 @@ class Search extends Component {
   getBreeds() {
     const breedList = this.state.breedList;
     const query = this.state.breed.toLowerCase();
-    const suggestions = []
+    let count = 0;
+    let suggestions = [];
 
+    // Loops through the list of breeds, looking for breeds that match what's entered in the search function
     breedList.forEach(breed => {
       const name = breed.$t.toLowerCase();
-       if (name.match(query)) {
+       if (name.match(query) && count < 10) {
+         count = count + 1;
          suggestions.push(breed.$t);
+       }
+       else {
+         return
        }
     })
     this.setState({

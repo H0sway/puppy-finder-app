@@ -105,7 +105,7 @@ nav li a:hover {
 .searchform {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .searchform h1 {
@@ -130,6 +130,24 @@ nav li a:hover {
 
 .searchform select, input {
   margin: 0 5px;
+}
+
+.suggestions {
+  margin: 0 auto;
+  text-align: left;
+  background-color: #ffffff;
+  width: 270px;
+
+  div {
+    display: block;
+    padding: .2em;
+    border-bottom: .01em solid #78006d;
+
+    p {
+      margin: 0;
+      color: #78006D;
+    }
+  }
 }
 
 select {
