@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
-// Import necessary components
-import Suggestions from './Suggestions';
+// Import component that displays the search results
 import Results from './Results';
 
 // Instantiate the Search class
@@ -54,15 +53,11 @@ class Search extends Component {
           <label>Select a breed and enter your zipcode!</label>
 
           <br />
-          <br />
-
-          <input type="submit" value="Search for Puppers" />
-
-          <br />
-          <br />
 
           <Select
+            className="breed-search"
             value={this.state.breed}
+            placeholder="Select a breed"
             onChange={this.handleBreedChange}
             options={this.state.breedList}
           />
@@ -74,6 +69,10 @@ class Search extends Component {
             onChange={this.handleChange}
             required
           />
+
+          <br />
+
+          <input type="submit" value="Search for Puppers" />
 
         </form>
 
