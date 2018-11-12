@@ -137,11 +137,13 @@ nav li a:hover {
   text-align: left;
   background-color: #ffffff;
   width: 270px;
+  z-index: 100;
 
   div {
     display: block;
     padding: .2em;
     border-bottom: .01em solid #78006d;
+    cursor: pointer;
 
     p {
       margin: 0;

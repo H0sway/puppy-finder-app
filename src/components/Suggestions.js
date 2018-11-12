@@ -5,7 +5,11 @@ import React from 'react'
 const Suggestions = (props) => {
   // Loops through the results props
   const options = props.results.map(breed => (
-    <div key={props.results.indexOf(breed)}>
+    <div
+      key={props.results.indexOf(breed)}
+      value={breed}
+      onClick={props.clickBreed}
+    >
       <p>{breed}</p>
     </div>
   ))

@@ -1,5 +1,6 @@
 // import things
 import React, { Component } from 'react';
+import Select from 'react-select';
 import axios from 'axios';
 
 // Import necessary components
@@ -12,7 +13,7 @@ class Search extends Component {
     super();
     this.state = {
       breedList: [],
-      breed: '',
+      breed: null,
       suggestions: [],
       zipcode: '',
       puppiesLoaded: false,
@@ -32,9 +33,13 @@ class Search extends Component {
       url: '/api/puppyfinder/breeds'
     })
     .then(data => {
-      this.setState({
-        breedList: data.data.data
+      const breedList = data.data.data.map(breed => {
+        return {value: breed.$t, label: breed.$t}
       })
+      this.setState({
+        breedList: breedList
+      })
+      console.log(breedList);
     })
     .catch(err => {
       console.log(err);
@@ -47,16 +52,19 @@ class Search extends Component {
         {/* Form that submits the search parameters to the axios call in this.handleSubmit */}
         <form onSubmit={this.handleSubmit}>
           <label>Select a breed and enter your zipcode!</label>
+
           <br />
           <br />
+
           <input type="submit" value="Search for Puppers" />
+
           <br />
           <br />
-          <input
-            placeholder="Search breeds"
+
+          <Select
             value={this.state.breed}
-            name="breed"
             onChange={this.handleBreedChange}
+            options={this.state.breedList}
           />
           <input
             type="text"
@@ -67,15 +75,6 @@ class Search extends Component {
             required
           />
 
-          {
-            this.state.suggestions ?
-              <Suggestions
-                results={this.state.suggestions}
-              /> : ''
-          }
-
-          <br />
-          <br />
         </form>
 
       {/* Name and photo of each of the breeds you can search for */}
@@ -134,39 +133,9 @@ class Search extends Component {
     )
   }
 
-  getBreeds() {
-    const breedList = this.state.breedList;
-    const query = this.state.breed.toLowerCase();
-    let count = 0;
-    let suggestions = [];
-
-    // Loops through the list of breeds, looking for breeds that match what's entered in the search function
-    breedList.forEach(breed => {
-      const name = breed.$t.toLowerCase();
-       if (name.match(query) && count < 10) {
-         count = count + 1;
-         suggestions.push(breed.$t);
-       }
-       else {
-         return
-       }
-    })
-    this.setState({
-      suggestions: suggestions
-    })
-  }
-
-  handleBreedChange(event) {
-    const breed = event.target.value;
-    this.setState({
-      suggestions: [],
-      breed: breed
-    })
-    if (breed && breed.length > 0) {
-      this.getBreeds();
-    }
-    else if (!this.state.breed) {
-    }
+  // Specifically handles the changes for the Select element from react-select.
+  handleBreedChange(breed) {
+    this.setState({ breed });
   }
   // Changes state based on what the user inputs into the form
   handleChange(event) {
@@ -181,13 +150,13 @@ class Search extends Component {
     event.preventDefault();
     // Check first to make sure the breed is in the list
     const breeds = this.state.breedList;
-    let query = this.state.breed.toLowerCase();
+    let query = this.state.breed.value.toLowerCase();
     let found;
     breeds.forEach(breed => {
-      if (breed.$t.toLowerCase() === query) {
-        console.log("Found " + breed.$t);
+      if (breed.value.toLowerCase() === query) {
+        console.log("Found " + breed.value);
         found = true;
-        query = breed.$t;
+        query = breed.value;
         return
       }
     })
@@ -203,11 +172,13 @@ class Search extends Component {
         },
       })
       .then(puppyData => {
-        console.log(puppyData);
         if (puppyData.data.data.pet.length) {
           this.setState({
             puppiesLoaded: true,
             puppyData: puppyData.data.data.pet,
+            breed: '',
+            suggestions: [],
+            zipcode: ''
           });
         }
         else {
